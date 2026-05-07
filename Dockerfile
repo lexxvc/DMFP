@@ -1,34 +1,18 @@
-# Dockerfile for RAG Asistente Ecommerce (Gradio + ChromaDB + Gemini)
-# Use official Python image
+# Usa una imagen ligera de Python
 FROM python:3.10-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Set work directory
+# Directorio de trabajo
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# Copia los archivos de requerimientos e instala
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy requirements
-COPY requirements.txt ./
-
-# Install Python dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Copy application code
+# Copia el resto del código
 COPY . .
 
-# Expose Gradio default port
-EXPOSE 7860
+# Expone el puerto que usa Cloud Run
+EXPOSE 8080
 
-# Set Gradio to listen on all interfaces for Cloud Run
-ENV GRADIO_SERVER_NAME=0.0.0.0
-
-# Command to run the Gradio app (update if your main file changes)
-CMD ["python", "RAG_Asistente_Ecommerce(1).ipynb"]
+# Comando para iniciar la app
+CMD ["python", "RAG.py"]
