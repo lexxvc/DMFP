@@ -1,0 +1,7 @@
+chromadb
+gradio
+google-generativeai
+numpy
+pandas
+sentence-transformers
+
