@@ -420,3 +420,8 @@ with gr.Blocks(
 
 demo.launch(share=True)  # share=True genera un link público temporal
 print('\n Interfaz lanzada — Copia el link "Running on public URL" para compartir')
+# Al final de tu archivo:
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    # No pases el 'theme' aquí si usas Gradio 6+, pásalo en gr.Blocks(theme=...)
+    demo.launch(server_name="0.0.0.0", server_port=port)
